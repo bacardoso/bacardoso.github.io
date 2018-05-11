@@ -59,9 +59,8 @@
   //Show/hide topic on clicking
   $('a.toogle-topic').click(function() {
     var gallery = $(this).parents('.portfolio-topic').children('.popup-gallery');
-    if($(gallery).is(':hidden')) $(gallery).slideDown('slow', function(){$(this).css({'display': 'initial'})});
+    if($(gallery).is(':hidden')) $(gallery).slideDown('slow', function(){$(this).css({'display': 'flex'})});
     else $(gallery).slideUp();
-    console.log($(gallery));
   });
 
   // Magnific popup calls

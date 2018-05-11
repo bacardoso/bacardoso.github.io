@@ -1,9 +1,4 @@
 @font-face{
-  font-name: 'BebasNeue';
-  src: url('fonts/BebasNeue-Regular.ttf');
-}
-
-@font-face{
   font-name: 'BraxtonFree';
   src: url('fonts/Braxton Free.otf');
 }
@@ -15,7 +10,7 @@ html {
 }
 
 body {
-  font-family: 'BebasNeue';
+  font-family: 'Helvetica', sans-serif;
 }
 
 hr {
@@ -110,7 +105,7 @@ img::-moz-selection {
 #mainNav .navbar-nav > li.nav-item > a.nav-link,
 #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
   font-size: .9rem;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: uppercase;
   color: #212529;
 }
@@ -122,7 +117,7 @@ img::-moz-selection {
 
 #mainNav .navbar-nav > li.nav-item > a.nav-link.active,
 #mainNav .navbar-nav > li.nav-item > a.nav-link:focus.active {
-  color: #373737 !important;
+  color: #00b2b2 !important;
   background-color: transparent;
 }
 
@@ -252,8 +247,8 @@ section#portfolio hr {
   display: none;
 }
 
-#portfolio div.first-of-type .popup-gallery{
-  display: initial;
+.p-0>div:first-of-type>.popup-gallery{
+  display: flex;
 }
 
 .portfolio-box {
@@ -262,12 +257,6 @@ section#portfolio hr {
   max-width: 650px;
   margin: 0 auto;
 }
-
-/*
-a.portfolio-box:first {
-  display: block;
-}
-*/
 
 .portfolio-box .portfolio-box-caption {
   position: absolute;
