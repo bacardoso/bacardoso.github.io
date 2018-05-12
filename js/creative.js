@@ -8,7 +8,7 @@
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
-          scrollTop: (target.offset().top - 57)
+          scrollTop: (target.offset().top - 110)
         }, 1000, "easeInOutExpo");
         return false;
       }
@@ -56,11 +56,33 @@
     distance: '0px'
   }, 300);
 
+
+  //Bar animation
+  var barWidth = $('#portfolio>div.container>.row').width()/3;
+  $('#bar').width(barWidth);
+
+
   //Show/hide topic on clicking
+  var showing = $('#social-media').children('.popup-gallery'), nowshowing = showing;
+  
   $('a.toogle-topic').click(function() {
-    var gallery = $(this).parents('.portfolio-topic').children('.popup-gallery');
-    if($(gallery).is(':hidden')) $(gallery).slideDown('slow', function(){$(this).css({'display': 'flex'})});
-    else $(gallery).slideUp();
+    var gallery = $("#"+$(this).prop('target')).children('.popup-gallery');
+    showing = nowshowing;
+
+    if($(gallery).is(':hidden')){
+      $(this).parent().parent().addClass('portfolio-active');
+      $("a[target='"+$(showing).parent().prop('id')+"']").parent().parent().removeClass('portfolio-active');
+      
+      $(showing).css('z-index', 'initial');
+      $(gallery).css('z-index', '100');
+      $(gallery).slideToggle('fast', function(){
+        $(this).css({'display': 'flex'});
+        $(showing).slideToggle('fast');
+      });
+      $("#bar").css('left', $(this).prop('target') == 'marketing'? barWidth: ($(this).prop('target') == 'branding-visual'? barWidth*2 : 0));
+
+    }
+    nowshowing = gallery;
   });
 
   // Magnific popup calls
