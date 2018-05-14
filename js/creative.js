@@ -61,28 +61,31 @@
   var barWidth = $('#portfolio>div.container>.row').width()/3;
   $('#bar').width(barWidth);
 
-
-  //Show/hide topic on clicking
-  var showing = $('#social-media').children('.popup-gallery'), nowshowing = showing;
-  
+  var nowshowing, showing = [null, null];
   $('a.toogle-topic').click(function() {
-    var gallery = $("#"+$(this).prop('target')).children('.popup-gallery');
-    showing = nowshowing;
+    if($("#"+$(this).prop('target')).children().length){
+      var gallery = $("#"+$(this).prop('target')).children('.popup-gallery');
+      showing = nowshowing || $('#'+$('.portfolio-active a').prop('target')).children('.popup-gallery');
 
-    if($(gallery).is(':hidden')){
-      $(this).parent().parent().addClass('portfolio-active');
-      $("a[target='"+$(showing).parent().prop('id')+"']").parent().parent().removeClass('portfolio-active');
-      
-      $(showing).css('z-index', 'initial');
-      $(gallery).css('z-index', '100');
-      $(gallery).slideToggle('fast', function(){
-        $(this).css({'display': 'flex'});
+      if($(gallery).is(':hidden')){
+        $(this).parent().parent().addClass('portfolio-active');
+        $("a[target='"+$(showing).parent().prop('id')+"']").parent().parent().removeClass('portfolio-active');
+        
+        $(gallery).slideToggle('fast', function(){
+          $(this).css({'display': 'flex'});
+          console.log(showing);
+        });
         $(showing).slideToggle('fast');
-      });
-      $("#bar").css('left', $(this).prop('target') == 'marketing'? barWidth: ($(this).prop('target') == 'branding-visual'? barWidth*2 : 0));
+        $("#bar")
+        .css('left', $(this).prop('target') == 'marketing' ? 
+          barWidth : 
+          ($(this).prop('target') == 'branding-visual' ? 
+            barWidth*2 : 
+            0 ) );
 
+      }
+      nowshowing = gallery;
     }
-    nowshowing = gallery;
   });
 
   // Magnific popup calls
@@ -100,5 +103,4 @@
       tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
     }
   });
-
 })(jQuery); // End of use strict
