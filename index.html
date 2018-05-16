@@ -66,7 +66,7 @@
       </div>
     </header>
 
-    <!--<section class="bg-primary" id="about">
+    <section class="bg-primary" id="about">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
@@ -79,7 +79,7 @@
       </div>
     </section>
 
-    <section id="services">
+    <!--<section id="services">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -193,86 +193,7 @@
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
 
-    <script>
-        $(document).ready(function() {
-          $('.portfolio-topic').each(function(i, topic){
-            var target = $(topic).prop('id');
-            if(target == 'social-media' || target == 'branding-visual'){
-              var isimg = true, imgindex = 1,
-              gallery =  $('<div>').addClass('row no-gutters popup-gallery'), 
-              cols = [$('<div>').addClass('column'), 
-                $('<div>').addClass('column'), 
-                $('<div>').addClass('column'), 
-                $('<div>').addClass('column')], 
-              col, a, img, openbutton,
-              nitems = target == 'social-media'? 14 : 5,
-              ext = target == 'social-media'? 'png' : 'jpg';
   
-              while(isimg) {
-               
-                img = new Image();
-                img.src = 'img/portfolio/'+target+'/'+imgindex+'.'+ext;
-                
-                if(imgindex <= nitems){
-                  $(img)
-                    .addClass('img-fluid');
-                  
-                  col = cols[(imgindex-1)%cols.length];
-                  
-                  a = $('<a>')
-                    .prop('href', 'img/portfolio/'+target+'/'+imgindex+'.'+ext)
-                    .addClass('portfolio-box');
-                  
-                  openbutton = $('<div>')
-                    .addClass('portfolio-box-caption');
-
-                  $(col).append(
-                    $(a).append(
-                      img, openbutton ) );
-
-                  imgindex++;
-                }
-                else isimg = false;
-              }
-              $(cols).each(function(i, col){
-                $(gallery).append(col);
-              });
-              if($(gallery).children().length) $(topic).append(gallery);
-            }
-            else if(target == 'marketing') {
-              var isvideo = true, videoindex = 1,
-              gallery =  $('<div>').addClass('row no-gutters popup-gallery'), 
-              cols = [$('<div>').addClass('video-column'), 
-                $('<div>').addClass('video-column'),], 
-              col, a, video, openbutton, nitems = 2;
-  
-              while(isvideo) {
-                if(videoindex <= nitems){
-                  video = $('<video>')
-                    .prop({
-                      'src': 'video/portfolio/'+target+'/'+videoindex+'.mp4',
-                      'type': 'video/mp4',
-                      'controls': true
-                    })
-                    .addClass('video-fluid');
-                  
-                  col = cols[(videoindex-1)%cols.length];
-
-                  $(col).append(
-                      video );
-
-                  videoindex++;
-                }
-                else isvideo = false;
-              }
-              $(cols).each(function(i, col){
-                $(gallery).append(col);
-              });
-              if($(gallery).children().length) $(topic).append(gallery);
-            }
-          })
-        });
-      </script>
   </body>
 
 </html>

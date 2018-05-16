@@ -61,6 +61,84 @@
   var barWidth = $('#portfolio>div.container>.row').width()/3;
   $('#bar').width(barWidth);
 
+  $('.portfolio-topic').each(function(i, topic){
+    var target = $(topic).prop('id');
+    if(target == 'social-media' || target == 'branding-visual'){
+      var isimg = true, imgindex = 1,
+      gallery =  $('<div>').addClass('row no-gutters popup-gallery'), 
+      cols = [$('<div>').addClass('column'), 
+        $('<div>').addClass('column'), 
+        $('<div>').addClass('column'), 
+        $('<div>').addClass('column')], 
+      col, a, img, openbutton,
+      nitems = target == 'social-media'? 14 : 5,
+      ext = target == 'social-media'? 'png' : 'jpg';
+
+      while(isimg) {
+       
+        img = new Image();
+        img.src = 'img/portfolio/'+target+'/'+imgindex+'.'+ext;
+        
+        if(imgindex <= nitems){
+          $(img)
+            .addClass('img-fluid');
+          
+          col = cols[(imgindex-1)%cols.length];
+          
+          a = $('<a>')
+            .prop('href', 'img/portfolio/'+target+'/'+imgindex+'.'+ext)
+            .addClass('portfolio-box');
+          
+          openbutton = $('<div>')
+            .addClass('portfolio-box-caption');
+
+          $(col).append(
+            $(a).append(
+              img, openbutton ) );
+
+          imgindex++;
+        }
+        else isimg = false;
+      }
+      $(cols).each(function(i, col){
+        $(gallery).append(col);
+      });
+      if($(gallery).children().length) $(topic).append(gallery);
+    }
+    else if(target == 'marketing') {
+      var isvideo = true, videoindex = 1,
+      gallery =  $('<div>').addClass('row no-gutters popup-gallery'), 
+      cols = [$('<div>').addClass('video-column'), 
+        $('<div>').addClass('video-column'),], 
+      col, a, video, openbutton, nitems = 2;
+
+      while(isvideo) {
+        if(videoindex <= nitems){
+          video = $('<video>')
+            .prop({
+              'src': 'video/portfolio/'+target+'/'+videoindex+'.mp4',
+              'type': 'video/mp4',
+              'controls': true
+            })
+            .addClass('video-fluid');
+          
+          col = cols[(videoindex-1)%cols.length];
+
+          $(col).append(
+              video );
+
+          videoindex++;
+        }
+        else isvideo = false;
+      }
+      $(cols).each(function(i, col){
+        $(gallery).append(col);
+      });
+      if($(gallery).children().length) $(topic).append(gallery);
+    }
+  });
+
+
   var nowshowing, showing = [null, null];
   $('a.toogle-topic').click(function() {
     if($("#"+$(this).prop('target')).children().length){
@@ -73,9 +151,8 @@
         
         $(gallery).slideToggle('fast', function(){
           $(this).css({'display': 'flex'});
-          console.log(showing);
         });
-        $(showing).slideToggle('fast');
+        $(showing).slideToggle();
         $("#bar")
         .css('left', $(this).prop('target') == 'marketing' ? 
           barWidth : 
@@ -89,18 +166,20 @@
   });
 
   // Magnific popup calls
-  $('.popup-gallery').magnificPopup({
-    delegate: 'a',
-    type: 'image',
-    tLoading: 'Loading image #%curr%...',
-    mainClass: 'mfp-img-mobile',
-    gallery: {
-      enabled: true,
-      navigateByImgClick: true,
-      preload: [0, 1]
-    },
-    image: {
-      tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
-    }
+  $('.popup-gallery').each(function(){
+    $(this).magnificPopup({
+      delegate: 'a',
+      type: 'image',
+      tLoading: 'Loading image #%curr%...',
+      mainClass: 'mfp-img-mobile',
+      gallery: {
+        enabled: true,
+        navigateByImgClick: true,
+        preload: [0, 1]
+      },
+      image: {
+        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+      }
+    })
   });
 })(jQuery); // End of use strict

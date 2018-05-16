@@ -287,11 +287,7 @@ header.masthead p {
   display: block;
   position: relative;
   max-width: 650px;
-  margin: 0 auto;
-}
-
-.img-fluid {
-  margin-top: 16px;
+  margin: 16px auto;
 }
 
 .portfolio-box .portfolio-box-caption {
