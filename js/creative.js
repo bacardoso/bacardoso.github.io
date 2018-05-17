@@ -58,10 +58,14 @@
 
 
   //Bar animation
-  var barWidth = $('#portfolio>div.container>.row').width()/3;
+  var barWidth = $('#portfolio>div.container>.row').width()/3,
+  [topics, ncols] = $(document).width() > 992 
+    ? ['.portfolio-topic', 4] 
+    : ['.portfolio-topic-sm', 2];
+
   $('#bar').width(barWidth);
 
-  $('.portfolio-topic').each(function(i, topic){
+  $(topics).each(function(i, topic){
     var target = $(topic).prop('id');
     if(target == 'social-media' || target == 'branding-visual'){
       var isimg = true, imgindex = 1,
@@ -83,7 +87,7 @@
           $(img)
             .addClass('img-fluid');
           
-          col = cols[(imgindex-1)%cols.length];
+          col = cols[(imgindex-1)%ncols];
           
           a = $('<a>')
             .prop('href', 'img/portfolio/'+target+'/'+imgindex+'.'+ext)
@@ -101,7 +105,7 @@
         else isimg = false;
       }
       $(cols).each(function(i, col){
-        $(gallery).append(col);
+        if(i < ncols) $(gallery).append(col);
       });
       if($(gallery).children().length) $(topic).append(gallery);
     }
@@ -122,7 +126,7 @@
             })
             .addClass('video-fluid');
           
-          col = cols[(videoindex-1)%cols.length];
+          col = cols[(videoindex-1)%(ncols/2)];
 
           $(col).append(
               video );
@@ -132,15 +136,16 @@
         else isvideo = false;
       }
       $(cols).each(function(i, col){
-        $(gallery).append(col);
+        if(i < ncols-1) $(gallery).append(col);
       });
       if($(gallery).children().length) $(topic).append(gallery);
     }
   });
 
 
+  //Slide galleries on click
   var nowshowing, showing = [null, null];
-  $('a.toogle-topic').click(function() {
+  $('a.toggle-topic').click(function() {
     if($("#"+$(this).prop('target')).children().length){
       var gallery = $("#"+$(this).prop('target')).children('.popup-gallery');
       showing = nowshowing || $('#'+$('.portfolio-active a').prop('target')).children('.popup-gallery');
